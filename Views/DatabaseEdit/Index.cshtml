@@ -1,0 +1,289 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Anime Oshirase Admin</title>
+    <script src="~/js/angular.js"></script>
+    <link rel="stylesheet" href="assets/demo.css">
+    <link rel="stylesheet" href="assets/form-basic.css">
+    <link rel="stylesheet" href="~/assets/form-search.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="~/assets/databasetable.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/assets/user-login.css" />
+    <link rel="stylesheet" href="~/assets/loading-screen.css">
+    <link rel="stylesheet" href="~/assets/details-panel.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <div>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div class=" user-lablel">
+                        <span>Anime Oshirase DataBase Entry   </span>
+                        <div class="user-labels-top-right user-parent">
+                            <div id="userProfile"><i class="fas fa-user-plus"></i></div>
+                            <div class="user-child user-child-hidden" id="signOut">
+                                <a href="/SignOut">Logout</a>
+                                <br />
+
+                                <a href="/newentry">Home</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                }
+            }
+
+        </div>
+
+
+    </header>
+    <div id="main" ng-app="appMain" ng-controller="mainController">
+        <div class="main-content">
+            <div id="databasetable" class="form-basic database-table database-table-top">
+                <div id="tableitem" class="tableitem" ng-repeat="movie in movies">
+                    <span><a href="#" ng-click="openDetailsPanel($event)">{{movie.title}}</a></span><span>{{movie.id}}</span><span><a href="#" ng-click="removeMe($event)">Remove</a></span>
+                </div>
+            </div>
+        </div>
+        <header style="background-color:transparent!important;">
+            <h1 style="float:none;color:dimgray!important"> Remove From Database</h1>
+        </header>
+        <div class="main-content">
+            <div id="databasetable" class="form-basic form-row database-table">
+                <div id="tableitem" class="tableitem" ng-repeat="movie in toRemove">
+                    <span><a>{{movie.title}}</span><span>{{movie.id}}</span><span><a href="" ng-click="cancel($event)">Cancel</a></span>
+                </div>
+                <button style="float:right;margin:10px 0px 10px 10px!important" type="button" value="Commit" ng-click="postRemove()" ng-disabled="disableRemoveButton">Commit</button>
+
+            </div>
+        </div>
+        <div id="details-panel" class="panel close-panel">
+            <div><a href="#" onclick="closeDetails()">close</a></div>
+            <h3>Movie Id</h3>
+            <hr />
+            <div>{{details.id}}</div>
+            <h3>Movie Title</h3>
+            <hr />
+            <div> {{details.title}}</div>
+            <h3>Movie OverView</h3>
+            <hr />
+            <div>
+                <p>  {{details.overview}}</p>
+            </div>
+            <h3>Trailer</h3>
+            <hr />
+            <div id="youTube">
+                <iframe width="560" height="315" ng-src={{srcTrusted(details.trailer)}} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <h3>Theater Url</h3>
+            <hr />
+            <div><p><a target="_blank" href="{{details.theaterUrl}}">Theater Link</a></p></div>
+        </div>
+    </div>
+
+
+    <div id="loadingScreen" class="loading loading-hidden ">
+        <div id="icon-spinner"><i class="fas fa-spinner-third"></i></div>
+        <div>Loading....</div>
+    </div>
+</body>
+
+</html>
+<script>
+    $("#databasetable").on("click", () => { console.log("body"); })
+    function openDetails() {
+        var isOpen = $("#details-panel").hasClass("open-panel");
+
+        if (isOpen == false)
+            $("#details-panel").removeClass("close-panel");
+        $("#details-panel").addClass("open-panel");
+    }
+    function closeDetails() {
+        var isOpen = $("#details-panel").hasClass("open-panel");
+
+        if (isOpen == true)
+            $("#details-panel").removeClass("open-panel");
+
+        $("#details-panel").addClass("close-panel");
+    }
+
+    function showLoading() {
+        var notvisible = $("#loadingScreen").hasClass("loading-hidden");
+        console.log(notvisible);
+        if (notvisible == true)
+            $("#loadingScreen").removeClass("loading-hidden");
+
+    }
+    function closeLoading() {
+        var notvisible = $("#loadingScreen").hasClass("loading-hidden");
+        if (!notvisible)
+            $("#loadingScreen").addClass("loading-hidden");
+    }
+
+    (function () {
+        showLoading();
+
+    })()
+
+    $("#userProfile").click(() => {
+
+        if ($("#signOut").hasClass("user-child-hidden"))
+            $("#signOut").removeClass("user-child-hidden").addClass("user-child-show");
+        else
+            $("#signOut").removeClass("user-child-show").addClass("user-child-hidden");
+        console.log("clicked");
+    })
+    let app = angular.module("appMain", ["ngSanitize"]);
+
+    var toRemove = [];
+    //function remove(event) {
+    //    var movieName = event.target.parentElement.parentElement.childNodes[1].innerText
+    //    var movieId = parseInt( event.target.parentElement.parentElement.childNodes[2].innerText )
+    //    var selected = movies.find((value) => {
+
+    //        return value.Id === movieId;
+    //    })
+    //    if (selected === undefined) {
+    //        return false;
+    //    }
+    //    toRemove.push(selected);
+    //    console.log(selected);
+    //}
+    app.controller("mainController", ($scope, $http, $sce) => {
+
+        $scope.movies;
+        $scope.details = {};
+        $scope.toRemove = toRemove;
+        $scope.theaterUrl;
+        $scope.disableRemoveButton = true;
+        var removefromdatabase = [{}];
+        var xhrInfo = {
+            "method": "GET",
+            "url": "http://localhost:62203/api/v1/GetAllNoMedia"
+        }
+
+        $http(xhrInfo)
+            .then(
+            (success) => {
+                closeLoading();
+                $scope.movies = success.data
+            },
+            (error) => {
+                closeLoading(); console.log(error)
+            });
+        $scope.cancel = function (event) {
+            if ($scope.toRemove.length == 0) {
+                $scope.disableRemoveButton = true;
+            }
+            else {
+                $scope.disableRemoveButton = true;
+            }
+            var movieName = event.target.parentElement.parentElement.childNodes[1].innerText
+            var movieId = parseInt(event.target.parentElement.parentElement.childNodes[2].innerText)
+            var selected = toRemove.findIndex((value) => {
+
+                return value.id === movieId;
+            })
+            if (selected === undefined) {
+                console.log(selected);
+                return false;
+            }
+            toRemove.splice(selected);
+            console.log(selected);
+
+        }
+        //runs when adding a new movie to the remove container
+        $scope.removeMe = function (event) {
+            $scope.disableRemoveButton = false;
+            var movieName = event.target.parentElement.parentElement.childNodes[1].innerText
+            var movieId = parseInt(event.target.parentElement.parentElement.childNodes[2].innerText)
+            var selected = $scope.movies.find((value) => {
+
+                return value.id === movieId;
+            })
+            if (selected === undefined) {
+                return false;
+            }
+
+            for (var i = 0; i < toRemove.length; i++) {
+
+                if (toRemove[i].id === selected.id) {
+                    console.log("all ready added");
+                    return;
+
+                }
+            }
+            console.log(selected)
+
+            toRemove.push(selected);
+            return false;
+        }
+        $scope.openDetailsPanel = function (event) {
+            var movieId = parseInt(event.target.parentElement.parentElement.children[1].innerText)
+
+            var index = $scope.movies.findIndex((value) => {
+
+                return value.id == movieId;
+            });
+
+            $scope.details = $scope.movies[index];
+            console.log($scope.details);
+            openDetails();
+        }
+        $scope.srcTrusted = function (code) {
+
+            var url = `https://www.youtube.com/embed/` + code
+
+            return $sce.trustAsResourceUrl(url);;
+        }
+        $scope.postRemove = function () {
+            var shouldProceed = confirm("Proceed?");
+            if (shouldProceed) {
+               
+                showLoading();
+                var itemsToRemove = $scope.toRemove;
+                var params = "";
+                for (var i = 0; i < itemsToRemove.length; i++) {
+                    params += "id=" + itemsToRemove[i].id + "&"
+                    removefromdatabase.push(itemsToRemove[i].id);
+                }
+                // let params = $.param({ id: removefromdatabase });
+                var xhrInfoDelete = {
+                    "method": "post",
+                    "url": "http://apianimearato.azurewebsites.net/newentry/delete?" + params,
+
+                }
+                $http(xhrInfoDelete)
+                    .then(
+                    (success) => {
+                        closeLoading();
+                        console.log(success);
+                        confirm("success!")
+                    },
+                    (error) => {
+                        closeLoading(); console.log(error)
+                        confirm("data delete fail :(");
+                    });
+            }
+            else {
+                console.log("canceled")
+            }
+
+        }
+    });
+
+</script>

@@ -1,0 +1,64 @@
+﻿.user-labels-top-right {
+    float: right;
+}
+
+.user-labels-dropdown {
+    height: 20%;
+    width: 20%;
+    background-color: lightgray;
+}
+
+.user-child {
+    position: absolute;
+    top: 25px;
+    right: 0px;
+    width: 200px;
+    background-color: lightgray;
+    border-radius: 3px;
+}
+
+    .user-child a {
+        color: #fff;
+        text-decoration: none;
+        border-radius: 3px;
+        margin-top: 0px !important;
+        background-color: transparent;
+        width: 100%;
+    }
+
+@keyframes animate-color {
+    from {
+        background-color: lightgray;
+    }
+
+    to {
+        background-color: dimgrey;
+    }
+}
+
+.user-child a:hover {
+    background-color: dimgrey;
+    animation: animate-color;
+    animation-duration:1s;
+}
+
+.user-child-show {
+    visibility: visible;
+    animation: ease-in-out;
+}
+
+.user-child-hidden {
+    visibility: hidden;
+    animation: ease-in-out;
+}
+
+.user-parent {
+    position: relative;
+}
+
+.user-lablel {
+    display: inline;
+    min-width: 500px;
+    font-size: 24px;
+    color: white;
+}

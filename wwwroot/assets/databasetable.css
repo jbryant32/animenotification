@@ -1,0 +1,44 @@
+﻿.tableitem:nth-child(odd) {
+    background-color: lightgray;
+    padding: 10px 20px 10px 20px;
+    color: white;
+    border-radius: 20px;
+}
+.tableitem:nth-child(even) {
+    background-color: white;
+    padding: 10px 20px 10px 20px;
+    color: gray
+}
+.tableitem span {
+  display:inline-table;
+}
+.tableitem span:nth-child(2) {
+   
+    margin-left: 4%;
+}
+.tableitem span:nth-child(3) {
+   
+    margin-left: 4%;
+}
+ 
+.tableitem {
+    
+}
+    .tableitem a {
+        text-decoration: none;
+        -moz-text-decoration-color: none;
+        text-decoration-color: none;
+        outline: none;
+    }
+.database-table {
+    min-width: 300px;
+    min-height: 300px;
+   
+}
+
+.database-table-top {
+    margin-top: 10%;
+}
+
+input[data-id="title"] {
+}

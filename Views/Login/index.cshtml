@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Anime Oshirase Admin</title>
+    <link rel="stylesheet" href="assets/demo.css">
+    <link rel="stylesheet" href="assets/form-login.css">
+    <link rel="stylesheet" href="~/assets/loading-screen.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+
+    <script src="~/js/angular.js"></script>
+
+
+</head>
+
+<body>
+    <header>
+        <h1 style="float:none!important;">Anime Oshirase DataBase Entry</h1>
+
+    </header>
+
+
+    <div class="main-content">
+
+        <!-- You only need this form and the form-login.css -->
+
+        <form id="loginform" class="form-login" method="post" action="/SignIn">
+
+            <div class="form-log-in-with-email">
+
+                <div class="form-white-background">
+
+                    <div class="form-title-row">
+                        <h1>Log in</h1>
+                    </div>
+
+                    <div class="form-row">
+                        <label>
+                            <span>User Name</span>
+                            <input type="text" id="username" name="UserName">
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <label>
+                            <span>Password</span>
+                            <input type="password" name="Password">
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <button type="submit">Log in</button>
+                    </div>
+
+                </div>
+
+                @*<a href="#" class="form-forgotten-password">Forgotten password &middot;</a>
+                    <a href="#" class="form-create-an-account">Create an account &rarr;</a>*@
+
+            </div>
+
+            @*<div class="form-sign-in-with-social">
+
+                    <div class="form-row form-title-row">
+                        <span class="form-title">Sign in with</span>
+                    </div>
+
+                    <a href="#" class="form-google-button">Google</a>
+                    <a href="#" class="form-facebook-button">Facebook</a>
+                    <a href="#" class="form-twitter-button">Twitter</a>
+
+                </div>*@
+
+        </form>
+
+    </div>
+    <div id="loadingScreen" class="loading loading-hidden ">
+        <div id="icon-spinner"><i class="fas fa-spinner-third"></i></div>
+        <div>Loading....</div>
+    </div>
+    <script>
+        function showLoading() {
+            var notvisible = $("#loadingScreen").hasClass("loading-hidden");
+            console.log(notvisible);
+            if (notvisible == true)
+                $("#loadingScreen").removeClass("loading-hidden");
+
+        }
+        function closeLoading() {
+            var notvisible = $("#loadingScreen").hasClass("loading-hidden");
+            if (!notvisible)
+                $("#loadingScreen").addClass("loading-hidden");
+        }
+
+        (function () {
+            $('#username').on('keypress', (e) => {
+                if (e.which === 32)
+                    return false;
+
+            })
+        })()
+
+        $('#loginform')
+            .ajaxForm({
+                url: '/SignIn',
+                dataType: 'form',
+                success: function (xhr, ajaxOptions, throwError) {
+                    console.log(xhr);
+                    window.location = "/newentry";
+                },
+                error: function (xhr, ajaxOptions, throwError) {
+                    alert("Password Incorrect");
+                    console.log(xhr.status);
+                }
+            })
+            ;
+    </script>
+</body>
+
+</html>

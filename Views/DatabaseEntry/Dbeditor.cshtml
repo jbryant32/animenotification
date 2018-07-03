@@ -1,0 +1,147 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="/assets/normalize.css" rel="stylesheet" />
+    <link href="/assets/main.css" rel="stylesheet" />
+    <link href="/assets/database-main.css" rel="stylesheet" />
+    <link href="~/assets/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="~/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/databaseEdit.js"></script>
+
+    <title>Anime Oshirase</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="navbar-brand">
+        </div>
+        <ul class="navbar navbar-nav ">
+            <li class="navbar-item"><a href="/newentry">Home</a></li>
+        </ul>
+    </nav>
+    <div class="main-container">
+
+        <div class="database-col container-border">
+            <div id="movie-media-overview">
+                <h3>Overview</h3>
+                <p>
+
+                </p>
+            </div>
+            <div id="movie-media-image">
+            </div>
+            <div id="movie-media-youtube">
+            </div>
+        </div>
+        <div class="database-col container-border">
+            <table id="movie-table" class="table">
+                <thead>
+                    <tr>
+                        <td>id</td>
+                        <td>Title</td>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+        <div class="database-col container-border">
+            <label>title</label>
+            <br />
+            <input type="text" data-id="title" class="form-control" />
+            <br />
+            <label>id</label>
+            <br />
+            <input type="text" data-id="id" class="form-control" />
+            <br />
+            <label>offeringSubbed</label>
+            <br />
+            <input type="text" data-id="offeringSubbed" class="form-control" />
+            <br />
+            <label>offeringDubbed</label>
+            <br />
+            <input type="text" data-id="offeringDubbed" class="form-control" />
+            <br />
+            <label>movieDates</label>
+            <br />
+            <input type="text" data-id="movieDates" class="form-control" />
+            <br />
+            <label>Release Date</label>
+            <br />
+            <input id="datepicker" data-id="releaseDate" type="text" class="form-control" />
+            <br />
+            <label>youTube</label>
+            <br />
+            <input type="text" data-id="youTube" class="form-control" />
+            <br />
+            <label>poster_path</label>
+            <br />
+            <input type="text" data-id="posterPath" class="form-control" />
+            <br />
+            <label>backdrop_path</label>
+            <br />
+            <input type="text" data-id="backdropPath" class="form-control" />
+            <br />
+            <label>theaterUrl</label>
+            <br />
+            <input type="text" data-id="theaterUrl" class="form-control" />
+
+        </div>
+    </div>
+    <div id="bottom-bar" class="bottom-bar container-border">
+        <button class="btn">commit</button>
+    </div>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                showButtonPanel: true
+            });
+        });
+        //var movieData = {
+
+        //    "title": $scope.movieTitle,
+        //    "id": 0,
+        //    "offeringSubbed": isEnglishSubbed,
+        //    "offeringDubbed": isEnglishDubbed,
+        //    "movieDates": $scope.savedMovieDates,
+        //    "theatricalReleaseStartDate": $scope.showingStartDate,
+        //    "youTube": $scope.youTubeID,
+        //    "poster_path": $scope.posterPath,
+        //    "backdrop_path": $scope.backdropPath,
+        //    "overview": "",
+        //    "theaterUrl": ""
+
+        //}
+        var db = new dataBaseEdit();
+
+        db.openConnectionToDb().then((data) => {
+            console.log(data);
+            db.fillTable(data);
+        },
+            (error) => {
+                console.log(error);
+            });
+                        //get the full database info
+                        //$.ajax({
+                        //    method: "GET",
+                        //    url: "http://animearatobe.azurewebsites.net/api/v1/getAllMovies",
+                        //    success: (data) => {
+                        //        var tr = document.createElement("tr");
+                        //        var td = document.createElement("td");
+                        //        var tdTwo = document.createElement("td");
+                        //        tdTwo.innerText = data["0"].id;
+                        //        td.innerText = data["0"].title
+                        //        tr.appendChild(tdTwo);
+                        //        tr.appendChild(td);
+                        //        console.log(data)
+                        //        document.getElementById("movie-table").appendChild(tr);
+                        //        document.getElementById("movie-media-overview").getElementsByTagName("p")[0].innerText = data["0"].overview;
+                        //    }
+                        //})
+    </script>
+</body>
+</html>
