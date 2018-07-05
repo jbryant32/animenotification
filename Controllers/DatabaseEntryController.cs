@@ -26,24 +26,33 @@ namespace AnimeAratoBackend.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin"),Route("Dbeditor")]
+        [Authorize(Roles = "Admin"), Route("Dbeditor")]
         public IActionResult IndexDB()
         {
             return View("Dbeditor");
         }
         [Authorize(Roles = "Admin")]
         [HttpPost, Route("post")]
-        public async Task<IActionResult> Post([FromBody]MovieData data)
+        public async Task<IActionResult> Post([FromBody]MovieData[] data)
         {
-            await repository.AddMovie(data);
             return Ok(data);
+            var msg = await repository.AddBulkMovies(data);
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpPost("{id}"), Route("delete")]
         public string[] Delete(string[] id)
         {
             var count = repository.Delete(id);
-            return ( id);
+            return (id);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}"), Route("deleteMovies")]
+        public async Task<string> DeleteMovies(string[] id)
+        {
+            var msg = await repository.deleteBulkMovies(id);
+            return (msg);
         }
     }
 }

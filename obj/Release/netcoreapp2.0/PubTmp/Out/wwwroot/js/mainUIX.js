@@ -1,0 +1,1 @@
+﻿///////jquery for general elements animations

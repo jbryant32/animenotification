@@ -1,0 +1,1 @@
+﻿/////All jquery and js animations for the database entry page

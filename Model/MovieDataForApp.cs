@@ -18,6 +18,10 @@ namespace AnimeAratoBackend.Model
         public string backdrop_md { get; set; }
         public string backdrop_lg { get; set; }
 
+        public string Subbed { get; set; }
+        public string Dubbed { get; set; }
+
+
         public string trailer { get; set; }
         public string overview { get; set; }
         public string releaseDate { get; set; }

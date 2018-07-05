@@ -15,6 +15,7 @@ namespace AnimeAratoBackend.Data
 
         public AODatabase(DbContextOptions options) : base(options)
         {
+           
         }
         public DbSet<SqlTable_Now_Playing> GetNowPlayingTable()
         {

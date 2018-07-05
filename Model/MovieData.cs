@@ -19,7 +19,8 @@ namespace AnimeAratoBackend.Model
         public string youTube { get; set; }
         public string poster_path { get; set; }
         public string backdrop_path { get; set; }
-        public string overview { get;set; }
+        public string special_posterUrl { get; set; }//TODO
+        public string overview { get; set; }
         public string theaterUrl { get; set; }
     }
 }

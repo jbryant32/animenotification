@@ -58,8 +58,9 @@ namespace AnimeAratoBackend
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
-            services.AddScoped<IRepository, RepositoryDb>();
+          
             services.AddScoped<UserManager>();
+            services.AddScoped<IRepository, RepositoryADO>();
             services.AddMvc();
         }
 

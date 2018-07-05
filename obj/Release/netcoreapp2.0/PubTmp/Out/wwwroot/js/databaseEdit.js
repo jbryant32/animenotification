@@ -46,7 +46,7 @@ class dataBaseEdit {
         this.dbMovies[this.indexSelected]["poster_lg"] = $('input[data-id="posterPath"]').val();
         this.dbMovies[this.indexSelected]["backdrop_lg"] = $('input[data-id="backdropPath"]').val();
         this.dbMovies[this.indexSelected]["theaterUrl"] = $('input[data-id="theaterUrl"]').val();
-        console.log(this.dbMovies[this.indexSelected]["backdrop_path"]);
+        
     }
 
     //called on every click of table item
@@ -55,7 +55,7 @@ class dataBaseEdit {
         this.dbMovies.forEach((item, index) => {
 
             if (selectedId == item.id) {
-                console.log(selectedId);
+            
                 this.indexSelected = index;
                 $('input[data-id="title"]').val(item.title);
                 $('input[data-id="id"]').val(item.id);
@@ -66,7 +66,6 @@ class dataBaseEdit {
                 $('input[data-id="youTube"]').val(item.trailer);
                 $('input[data-id="posterPath"]').val(item.poster_lg);
                 $('input[data-id="backdropPath"]').val(item.backdrop_lg);
-                console.log(item);
                 $('input[data-id="theaterUrl"]').val(item.theaterUrl);
                 document
                     .getElementById("movie-media-overview")

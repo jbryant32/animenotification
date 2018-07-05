@@ -26,6 +26,7 @@
     <script src="~/js/JsObjects.js"></script>
     <script src="~/js/databaseentry.js"></script>
     <script src="~/js/all.js"></script>
+    <script src="~/js/databaseEntryValidation.js"></script>
 </head>
 <body>
     <header>
@@ -88,7 +89,7 @@
                 </div>
                 <div class="entry-form-row">
                     <div><label>Movie Id</label></div>
-                    <input readonly="readonly" type="text" name="movieId" ng-model="movieId" required>
+                    <input readonly="readonly" type="text" id="movieId" name="movieId" ng-model="movieId" required>
                 </div>
                 <div class="entry-form-row">
                     <div> <label>Poster Path</label></div>
@@ -119,20 +120,19 @@
             </div>
             <div class="container-border">
                 <!--DATE PICKER-------------------------------------------------------------------------->
-                <div class="entry-form-row">
+                <div id="pickShowingDates" class="entry-form-row">
                     <div> <label>Pick Showing Dates</label></div>
                     <input type="text" name="datepicker" id="datepicker" ng-model="date" required />
                 </div>
                 <div class="entry-form-row">
-                    <div ng-repeat="item in savedMovieDates" ng-click="removeTime($event)">
-                        <span id="playingTimes" style="display:inline">
-                            {{item}}
-                            <span>
-                                <i class="far fa-minus-square"></i>
-                            </span>
-                        </span>
+                    <div><label>Selected Show Dates</label></div>
+                    <div>
+                        <ul id="movieShowDates"></ul>
+                        <button disabled id="clearButton" type="button" class="btn btn-primary">Clear</button>
                     </div>
+
                 </div>
+
                 <div class="entry-form-row">
                     <div> <label>Pick Showing Start Date</label></div>
                     <input type="text" name="showingstartdatepicker" id="showingstartdatepicker" ng-model="showingStartDate" />
@@ -144,15 +144,14 @@
                 </div>
                 <div class="entry-form-row">
                     <div>  <label>Theater Url</label></div>
-                    <input type="url" id="theaterUrl" ng-model="theaterUrl" required />
+                    <input type="text" id="theaterUrl" ng-model="theaterUrl" required />
                 </div>
                 <div class="entry-form-row">
-                    <button id="checkMovieButton" class="btn btn-primary" type="button">Check Que</button>
-                    <button id="addmoviebutton" class="btn btn-primary" type="button">Add To Que</button>
+                    <button disabled id="checkMovieButton" class="btn btn-primary" type="button">Check Que</button>
+                    <button disabled id="addmoviebutton" class="btn btn-primary" type="button">Add To Que</button>
+                    <button disabled id="submitMoviesButton" class="btn btn-primary" type="button">Submit</button>
                 </div>
-                @*<div class="entry-form-row">
-                        <button class="btn btn-primary" type="submit">Submit Form</button>
-                    </div>*@
+
             </div>
         </form>
     </div>
@@ -166,7 +165,7 @@
 </body>
 </html>
 <script>
-
+    var dbEntry = new databaseEntry();
     function showLoading() {
         var notvisible = $("#loadingScreen").hasClass("loading-hidden");
         console.log(notvisible);
@@ -179,11 +178,14 @@
         if (!notvisible)
             $("#loadingScreen").addClass("loading-hidden");
     }
+    //open and closes menu
     $("#userProfile").click(() => {
-
-        var animationSettings = { width: "toggle" }
-        $("#signOut").animate(animationSettings, 500, () => { console.log(animationSettings) })
+       
+        $("#signOut").animate({
+            right: (function () {var pos = $('#signOut').css('right'); if (pos != '0px') {return '0px';} else {return '-50%';} })()
+        })
     })
+
 
     var savedDates = ["12-12-25"];
 
@@ -204,6 +206,8 @@
         $scope.movieQuery;
         var isEnglishDubbed = "Yes";
         var isEnglishSubbed = "Yes";
+
+
 
         $scope.englishDubbed = function (value) {
             let select = document.getElementById("englishdubbed");
@@ -238,7 +242,7 @@
             "id": 0,
             "offeringSubbed": isEnglishSubbed,
             "offeringDubbed": isEnglishDubbed,
-            "movieDates": $scope.savedMovieDates,
+            "movieDates": [],
             "theatricalReleaseStartDate": $scope.showingStartDate,
             "youTube": $scope.youTubeID,
             "poster_path": $scope.posterPath,
@@ -250,6 +254,7 @@
 
         var imageDiv = document.getElementById("media-selection-container");
 
+        //this is tp populate the initial media box
         function init() {
 
 
@@ -416,42 +421,35 @@
             }
             return false;
         });
-        //$('#databaseform').validate({
-        //    onfocusout: function (element) {
-        //        $(element).valid();
-        //    },
-        //    rules: {
-        //        name: { required: true },
-        //        movieId: { required: true },
-        //        dropdown: { required: true },
-        //        showingstartdatepicker: { required: true },
-        //        youtubeid: { required: true },
-        //        datepicker: { required: true },
-        //        theaterUrl: { required: true }
-        //    }
-        //});
+
         var addMovieButton = document.getElementById("addmoviebutton");
         var checkMovieButton = document.getElementById("checkMovieButton");
         var closeMovieContainerButton = document.getElementById("closeButton");
-
+        var submitButton = document.getElementById("submitMoviesButton");
         var movieObjectClass = new savedMovieItem();
+    
         addMovieButton.addEventListener("click", () => {
             movieDataforDb["title"] = $scope.movieTitle
             movieDataforDb["id"] = parseInt($scope.movieId)
             movieDataforDb["offeringSubbed"] = isEnglishSubbed
             movieDataforDb["offeringDubbed"] = isEnglishDubbed
-            movieDataforDb["movieDates"] = $scope.savedMovieDates
+            movieDataforDb["movieDates"] = (function () {
+                var dates = Array.from(document.getElementById("movieShowDates").getElementsByTagName("li"));
+                var tmp = [];
+                dates.forEach((item) => {
+                    tmp.push(item.innerText);
+                });
+                return tmp;
+            })();
             movieDataforDb["theatricalReleaseStartDate"] = $scope.showingStartDate;
             movieDataforDb["youTube"] = $scope.youTubeID
             movieDataforDb["poster_path"] = $scope.posterPath
             movieDataforDb["backdrop_path"] = $scope.backdropPath
             movieDataforDb["overview"] = $scope.overview
-            movieDataforDb["theaterUrl"] = $scope.theaterUrl
+            movieDataforDb["theaterUrl"] = document.getElementById("theaterUrl").value;
             movieObjectClass.setDomItem(movieDataforDb)
             alert("Movie Added Successfully");
-
-        })
-
+        });
         $("div:not(#saved-movie-item-container)").on("click", () => {
             var movieContainerOpen = $("#saved-movie-item-container").hasClass("Open");
             var animimating = $("#saved-movie-item-container").is(':animated');

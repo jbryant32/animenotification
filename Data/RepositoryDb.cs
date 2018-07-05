@@ -236,5 +236,15 @@ namespace AnimeAratoBackend.Data
             }
             return tmplist.ToArray();
         }
+
+        public Task<string> AddBulkMovies(MovieData[] movies)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> deleteBulkMovies(string[] movieIds)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

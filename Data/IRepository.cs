@@ -14,6 +14,8 @@ namespace AnimeAratoBackend.Data
         MovieDataForApp getMovie(int id);
         Task<MovieDataForApp[]> GetAllShowings();
         Task AddMovie(MovieData movie);
+        Task<string> AddBulkMovies(MovieData[] movies);
+        Task<string> deleteBulkMovies(string[] movieIds);
         MovieDataForApp[] GetAllNoMedia(int id);
         Task<MovieDataForApp[]> TestEnd();
     }
