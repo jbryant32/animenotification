@@ -156,16 +156,18 @@ namespace AnimeAratoBackend.Data
         public async Task<MovieDataForApp[]> GetAllShowings()
         {
             var tmplst = new List<MovieDataForApp>();
-            var tmpmovie = new MovieDataForApp();
+           
 
             var mediaTable = context.getMediaTable();
             var nowPlaying = context.GetNowPlayingTable();
             var showDates = context.getShowDatesTable();
             var mediaResults = mediaTable.FromSql("SELECT * FROM [moving media]").ToList();
             var NowPlayingResults = nowPlaying.FromSql("SELECT * FROM [now playing]").ToList();
-
-            foreach (var nowplaying in nowPlaying)
+            var Dates = showDates.FromSql("SELECT * FROM [show dates]").ToList(); 
+            foreach (var nowplaying in NowPlayingResults)
             {
+                var tmpmovie = new MovieDataForApp();
+                var showings = new List<string>();
                 tmpmovie.title = nowplaying.Title;
                 tmpmovie.id = Int32.Parse(nowplaying.Id);
                 tmpmovie.trailer = nowplaying.YouTube;
@@ -174,8 +176,9 @@ namespace AnimeAratoBackend.Data
                 tmpmovie.Subbed = nowplaying.Subbed;
                 tmpmovie.theatricalRelease = nowplaying.ReleaseDate;
                 tmpmovie.releaseDate = nowplaying.ReleaseDate;
+                tmpmovie.overview = nowplaying.OverView;
 
-                foreach (var mediatable in mediaTable)
+                foreach (var mediatable in mediaResults)
                 {
                     tmpmovie.poster_sm = mediatable.poster_sm;
                     tmpmovie.poster_md = mediatable.poster_md;
@@ -184,6 +187,15 @@ namespace AnimeAratoBackend.Data
                     tmpmovie.backdrop_sm = mediatable.backdrop_sm;
                     tmpmovie.backdrop_md = mediatable.backdrop_md;
                     tmpmovie.backdrop_lg = mediatable.backdrop_lg;
+                }
+
+                foreach (var showDate in Dates)
+                {
+                    if (tmpmovie.id ==Int32.Parse(showDate.id))
+                    {
+                        showings.Add(showDate.date);
+                        tmpmovie.showings = showings.ToArray();
+                    }
                 }
                 tmplst.Add(tmpmovie);
             }

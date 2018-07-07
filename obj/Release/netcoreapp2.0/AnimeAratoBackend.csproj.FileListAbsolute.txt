@@ -36,9 +36,9 @@ C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\bin\Release\netcoreapp2.0
 C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\bin\Release\netcoreapp2.0\AnimeAratoBackend.runtimeconfig.dev.json
 C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\bin\Release\netcoreapp2.0\AnimeAratoBackend.dll
 C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\bin\Release\netcoreapp2.0\AnimeAratoBackend.pdb
-C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\obj\Release\netcoreapp2.0\AnimeAratoBackend.csprojAssemblyReference.cache
 C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\obj\Release\netcoreapp2.0\AnimeAratoBackend.csproj.CoreCompileInputs.cache
 C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\obj\Release\netcoreapp2.0\AnimeAratoBackend.AssemblyInfoInputs.cache
 C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\obj\Release\netcoreapp2.0\AnimeAratoBackend.AssemblyInfo.cs
 C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\obj\Release\netcoreapp2.0\AnimeAratoBackend.dll
 C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\obj\Release\netcoreapp2.0\AnimeAratoBackend.pdb
+C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\obj\Release\netcoreapp2.0\AnimeAratoBackend.csprojAssemblyReference.cache

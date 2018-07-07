@@ -35,9 +35,8 @@ namespace AnimeAratoBackend.Controllers
         [HttpPost, Route("post")]
         public async Task<IActionResult> Post([FromBody]MovieData[] data)
         {
-            return Ok(data);
             var msg = await repository.AddBulkMovies(data);
-            
+            return Ok(msg);
         }
         [Authorize(Roles = "Admin")]
         [HttpPost("{id}"), Route("delete")]

@@ -3,31 +3,36 @@ class databaseEntry {
     constructor(showDates) {
         this.showDates = [];
         this.idInputHasValues = false;
-        document.getElementById("clearButton").addEventListener("click", (e) => { this.clearMovieDates() })
-        document.getElementById("submitMoviesButton").addEventListener("click", (e) => {
-            $.ajax({
-                method: "POST",
-                url: baseUrl + postMoviesUrl,
-                data: JSON.stringify( this.createObjectsForServer()),
-                dataType: 'json',
-                contentType:'application/json',
-                success: (msg) => { console.log(msg) },
-                error: (msg) => { console.log(msg) }
-            })
-        });
-        $(document).ready(() => {
 
+
+        $(document).ready(() => {
+            //hookup to date picker event and add selected date to movieShowDates ul elemeent 
             $("#pickShowingDates #datepicker").datepicker({
                 onSelect: this.addSeletedMovieShowDates
 
             });
+            //clears out showDate array
+            document.getElementById("clearButton").addEventListener("click", (e) => { this.clearMovieDates() })
+            document.getElementById("submitMoviesButton").addEventListener("click", (e) => {
+                windowMessage.openWorking();
+                this.commitMoviesToAjax();
+            });
+            
         })
 
     }
 
 
     commitMoviesToAjax() {
-
+        $.ajax({
+            method: "POST",
+            url: baseUrl + postMoviesUrl,
+            data: JSON.stringify(this.createObjectsForServer()),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: (msg) => { console.log(msg); windowMessage.closeWorking(); alert("Success! "); },
+            error: (msg) => { console.log(msg); alert(msg.responseText); windowMessage.closeWorking(); }
+        })
     }
     //creates movies object and adds to array for being sent to server
     createObjectsForServer() {
@@ -50,7 +55,7 @@ class databaseEntry {
                 "offeringSubbed": offeringSubbed,
                 "offeringDubbed": offeringDubbed,
                 "movieDates": (function () {
-                  
+
                     var tmp = [];
                     dbEntry.showDates.forEach((movieDate) => {
                         if (movieDate.id === id)
@@ -67,12 +72,13 @@ class databaseEntry {
                 "theaterUrl": theaterUrl
             };
             moviesForAjax.push(MovieData);
-            
-           
+
+
         })
-        console.log(moviesForAjax);
+
         return moviesForAjax;
     }
+    //remvoies movies being sent 
     removeMovieFromAjax() { }
 
     //adds show date to the selected movie showings list and adds to the showDates array the movie id and the date
@@ -80,7 +86,7 @@ class databaseEntry {
 
         var date = $(this).val();
         var id = document.getElementById("movieId").value;
-       
+
         var movieShowings = { "id": id, "date": date };
         dbEntry.showDates.push(movieShowings);
 
@@ -88,26 +94,39 @@ class databaseEntry {
         li.setAttribute("id", "movieDate");
         li.innerText = date
         document.getElementById("movieShowDates").appendChild(li);
-        
+
     }
     //when the clear button is pressed this removes the movie to be cleared from the showDates object array
     clearMovieDates() {
         var id = document.getElementById("movieId").value;
         document.getElementById("movieShowDates").innerHTML = "";
         var arrayLength = this.showDates.length;
-        this.showDates.forEach((item,index) => {
+        this.showDates.forEach((item, index) => {
             if (item.id === id) {
                 var indx = this.showDates.indexOf(item)
-                this.showDates.splice(indx,1);
+                this.showDates.splice(indx, 1);
             }
         });
-      
+
     }
 
     clearAllMovieDates() {
         document.getElementById("movieShowDates").innerHTML = "";
         this.showDates = [];
         console.log(this.showDates)
+    }
+    attachMovieImgListner() {
+        Array.from(document.getElementsByTagName("img")).forEach((movieImg) => {
+            movieImg.addEventListener("click", () => { console.log("mo"); })
+        })
+    }
+    clearForm() {
+        this.clearMovieDates()
+        var inputs = Array.from(document.querySelectorAll("input:not([type= 'search'])"))
+
+        inputs.forEach((element) => {
+            element.value = "";
+        });
     }
 }
 
@@ -191,13 +210,13 @@ class savedMovieItem {
 
         closeIcon.addEventListener("click", (e) => {
             var movieId = $(e.target.parentElement).attr("data-movieId");
-          
+
 
             var toRemove = Array.from(document.getElementById("saved-movie-item-container").getElementsByClassName("saved-movie-item"));
             toRemove.forEach((item) => {
                 var title = item.getAttribute("data-movieId");
                 if (title === movieId) {
-                   
+
                     document.getElementById("saved-movie-item-container")
                         .removeChild(item);
                 }

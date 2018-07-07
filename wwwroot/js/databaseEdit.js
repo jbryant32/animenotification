@@ -2,6 +2,7 @@
 class dataBaseEdit {
     constructor() {
         this.dbMovies = [{}];
+        //saves the new user defined inputs
         document.querySelectorAll('input').forEach((element) => {
             element.addEventListener("focusout", () => {
                 if (this.indexSelected !== NaN)
@@ -57,16 +58,18 @@ class dataBaseEdit {
             if (selectedId == item.id) {
             
                 this.indexSelected = index;
-                $('input[data-id="title"]').val(item.title);
+                //$('#title').val(item.title);
+                document.getElementById("title").value = item.title;
                 $('input[data-id="id"]').val(item.id);
-                $('input[data-id="offeringSubbed"]').val(item.offeringSubbed);
-                $('input[data-id="offeringDubbed"]').val(item.offeringDubbed);
+                $('input[data-id="offeringSubbed"]').val(item.subbed);
+                $('input[data-id="offeringDubbed"]').val(item.dubbed);
                 $('input[data-id="movieDates"]').val(item.showings);
                 $('input[data-id="releaseDate"]').val(item.releaseDate);
                 $('input[data-id="youTube"]').val(item.trailer);
                 $('input[data-id="posterPath"]').val(item.poster_lg);
                 $('input[data-id="backdropPath"]').val(item.backdrop_lg);
                 $('input[data-id="theaterUrl"]').val(item.theaterUrl);
+                $('input[data-id="movieDates"]').val(item.showings.toString());
                 document
                     .getElementById("movie-media-overview")
                     .getElementsByTagName("p")[0]
