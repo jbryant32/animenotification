@@ -13092,30 +13092,33 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\virtualhavenstudios\\.nuget\\packages\\": {},
+    "C:\\Users\\Tech\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\virtualhavenstudios\\source\\repos\\AnimeAratoBe\\AnimeAratoBackend.csproj",
+      "projectUniqueName": "C:\\Users\\Tech\\Documents\\Visual Studio 2017\\Projects\\animeOshirase\\animenotification\\AnimeAratoBackend.csproj",
       "projectName": "AnimeAratoBackend",
-      "projectPath": "C:\\Users\\virtualhavenstudios\\source\\repos\\AnimeAratoBe\\AnimeAratoBackend.csproj",
-      "packagesPath": "C:\\Users\\virtualhavenstudios\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\virtualhavenstudios\\source\\repos\\AnimeAratoBe\\obj\\",
+      "projectPath": "C:\\Users\\Tech\\Documents\\Visual Studio 2017\\Projects\\animeOshirase\\animenotification\\AnimeAratoBackend.csproj",
+      "packagesPath": "C:\\Users\\Tech\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Tech\\Documents\\Visual Studio 2017\\Projects\\animeOshirase\\animenotification\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\virtualhavenstudios\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Tech\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -13132,34 +13135,34 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.AspNetCore.All": {
-            "target": "Package",
-            "version": "[2.0.6, )"
-          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[2.0.2, )"
-          },
-          "Microsoft.EntityFrameworkCore.SqlServer": {
-            "target": "Package",
-            "version": "[2.0.2, )"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "[2.0.0, )",
-            "autoReferenced": true
-          },
-          "Newtonsoft.Json": {
-            "target": "Package",
-            "version": "[11.0.2, )"
-          },
-          "angularjs": {
-            "target": "Package",
-            "version": "[1.6.9, )"
+            "version": "2.0.2"
           },
           "jQuery": {
             "target": "Package",
-            "version": "[3.3.1, )"
+            "version": "3.3.1"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "2.0.0",
+            "autoReferenced": true
+          },
+          "Microsoft.EntityFrameworkCore.SqlServer": {
+            "target": "Package",
+            "version": "2.0.2"
+          },
+          "Microsoft.AspNetCore.All": {
+            "target": "Package",
+            "version": "2.0.6"
+          },
+          "angularjs": {
+            "target": "Package",
+            "version": "1.6.9"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "11.0.2"
           }
         },
         "imports": [

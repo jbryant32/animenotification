@@ -17,7 +17,7 @@ class databaseEntry {
                 windowMessage.openWorking();
                 this.commitMoviesToAjax();
             });
-            
+
         })
 
     }
@@ -247,6 +247,9 @@ class savedMovieItem {
         mainContainer.appendChild(labeltheaterUrl);
         mainContainer.appendChild(theaterUrl);
         mainContainer.appendChild(closeIcon);
+        mainContainer.innerHTML + `<img src= ${movieDataforDb["poster_path"]} class="responsive" />`
+        var youTubeUrl = "https://www.youtube.com/embed/" + movieDataforDb["youTube"];
+        mainContainer.innerHTML += `<iframe width="420" height="315" src = ${youTubeUrl}></iframe > <br/>`
         domContainer.appendChild(mainContainer);
 
         Array.from(domContainer.getElementsByTagName("label")).forEach((item) => {

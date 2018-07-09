@@ -1,10 +1,10 @@
-C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe
+C:\Users\Tech\Documents\Visual Studio 2017\Projects\animeOshirase\animenotification
 --output-path=obj\Release\netcoreapp2.0\
 --application-name=AnimeAratoBackend
---content-root=C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe
---file=C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\Views\DatabaseEdit\Index.cshtml
---file=C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\Views\DatabaseEntry\Dbeditor.cshtml
---file=C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\Views\DatabaseEntry\Index.cshtml
---file=C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\Views\Login\index.cshtml
---file=C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\Views\Shared\_Layout.cshtml
---file=C:\Users\virtualhavenstudios\source\repos\AnimeAratoBe\Views\_ViewStart.cshtml
+--content-root=C:\Users\Tech\Documents\Visual Studio 2017\Projects\animeOshirase\animenotification
+--file=C:\Users\Tech\Documents\Visual Studio 2017\Projects\animeOshirase\animenotification\Views\DatabaseEdit\Index.cshtml
+--file=C:\Users\Tech\Documents\Visual Studio 2017\Projects\animeOshirase\animenotification\Views\DatabaseEntry\Dbeditor.cshtml
+--file=C:\Users\Tech\Documents\Visual Studio 2017\Projects\animeOshirase\animenotification\Views\DatabaseEntry\Index.cshtml
+--file=C:\Users\Tech\Documents\Visual Studio 2017\Projects\animeOshirase\animenotification\Views\Login\index.cshtml
+--file=C:\Users\Tech\Documents\Visual Studio 2017\Projects\animeOshirase\animenotification\Views\Shared\_Layout.cshtml
+--file=C:\Users\Tech\Documents\Visual Studio 2017\Projects\animeOshirase\animenotification\Views\_ViewStart.cshtml

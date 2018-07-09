@@ -44,13 +44,16 @@ namespace AnimeAratoBackend.Data
                         command.Parameters.Add(new SqlParameter("@backdrop_sm", movie.backdrop_path));
                         command.Parameters.Add(new SqlParameter("@backdrop_md", movie.backdrop_path));
                         command.Parameters.Add(new SqlParameter("@backdrop_lg", movie.backdrop_path));
-                        command.Parameters.Add(new SqlParameter("@id", movie.id));
+                        command.Parameters.Add(new SqlParameter("@id", movie.id.ToString()));
                         command.Parameters.Add(new SqlParameter("@overview", movie.overview));
+                        command.Parameters.Add(new SqlParameter("@dubbed", movie.offeringDubbed));
+                        command.Parameters.Add(new SqlParameter("@subbed", movie.offeringSubbed));
                         command.Parameters.Add(new SqlParameter("@youtube", movie.youTube));
-                        command.Parameters.Add(new SqlParameter("theatricalReleaseStartDate", movie.theatricalReleaseStartDate));
-                        command.Parameters.Add(new SqlParameter("@date", "9/9/99"));
-
-                        command.CommandText = "INSERT INTO [now playing] VALUES(@title,'Yes','No','youtublink','this is a overview',@id,'12/18/19','this is a url')";
+                        command.Parameters.Add(new SqlParameter("@theatricalReleaseStartDate", movie.MovieDates[0]));
+                        command.Parameters.Add(new SqlParameter("@date", movie.MovieDates[0]));
+                        command.Parameters.Add(new SqlParameter("@theaterUrl", movie.theaterUrl));
+                      
+                        command.CommandText = "INSERT INTO [now playing] VALUES(@title,@dubbed,@subbed,@youtube,@overview,@id,@theatricalReleaseStartDate,@theaterUrl)";
                         await command.ExecuteNonQueryAsync();
                         command.CommandText = "INSERT INTO [moving media] VALUES(@title,@poster_sm,@poster_md,@poster_lg,@poster_lgx,@backdrop_sm,@backdrop_md,@backdrop_lg,@id)";
                         await command.ExecuteNonQueryAsync();

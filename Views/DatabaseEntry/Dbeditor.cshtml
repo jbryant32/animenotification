@@ -101,21 +101,7 @@
                 showButtonPanel: false
             });
         });
-        //var movieData = {
-
-        //    "title": $scope.movieTitle,
-        //    "id": 0,
-        //    "offeringSubbed": isEnglishSubbed,
-        //    "offeringDubbed": isEnglishDubbed,
-        //    "movieDates": $scope.savedMovieDates,
-        //    "theatricalReleaseStartDate": $scope.showingStartDate,
-        //    "youTube": $scope.youTubeID,
-        //    "poster_path": $scope.posterPath,
-        //    "backdrop_path": $scope.backdropPath,
-        //    "overview": "",
-        //    "theaterUrl": ""
-
-        //}
+       
         var db = new dataBaseEdit();
 
         db.openConnectionToDb().then((data) => {
@@ -125,23 +111,7 @@
             (error) => {
                 console.log(error);
             });
-                        //get the full database info
-                        //$.ajax({
-                        //    method: "GET",
-                        //    url: "http://animearatobe.azurewebsites.net/api/v1/getAllMovies",
-                        //    success: (data) => {
-                        //        var tr = document.createElement("tr");
-                        //        var td = document.createElement("td");
-                        //        var tdTwo = document.createElement("td");
-                        //        tdTwo.innerText = data["0"].id;
-                        //        td.innerText = data["0"].title
-                        //        tr.appendChild(tdTwo);
-                        //        tr.appendChild(td);
-                        //        console.log(data)
-                        //        document.getElementById("movie-table").appendChild(tr);
-                        //        document.getElementById("movie-media-overview").getElementsByTagName("p")[0].innerText = data["0"].overview;
-                        //    }
-                        //})
+                        
     </script>
 </body>
 </html>
