@@ -181,15 +181,18 @@ namespace AnimeAratoBackend.Data
                 tmpmovie.releaseDate = nowplaying.ReleaseDate;
                 tmpmovie.overview = nowplaying.OverView;
 
-                foreach (var mediatable in mediaResults)
+                foreach (var media in mediaResults)
                 {
-                    tmpmovie.poster_sm = mediatable.poster_sm;
-                    tmpmovie.poster_md = mediatable.poster_md;
-                    tmpmovie.poster_lg = mediatable.poster_lg;
-                    tmpmovie.poster_lgx = mediatable.poster_lgx;
-                    tmpmovie.backdrop_sm = mediatable.backdrop_sm;
-                    tmpmovie.backdrop_md = mediatable.backdrop_md;
-                    tmpmovie.backdrop_lg = mediatable.backdrop_lg;
+                    if (Int32.Parse(media.id) == tmpmovie.id )
+                    {
+                        tmpmovie.poster_sm = media.poster_sm;
+                        tmpmovie.poster_md = media.poster_md;
+                        tmpmovie.poster_lg = media.poster_lg;
+                        tmpmovie.poster_lgx = media.poster_lgx;
+                        tmpmovie.backdrop_sm = media.backdrop_sm;
+                        tmpmovie.backdrop_md = media.backdrop_md;
+                        tmpmovie.backdrop_lg = media.backdrop_lg; 
+                    }
                 }
 
                 foreach (var showDate in Dates)
